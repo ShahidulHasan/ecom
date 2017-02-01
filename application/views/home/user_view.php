@@ -83,50 +83,101 @@
 		<?php }} ?>
 	});
 </script>
-<div class="width_1000 back_white">
-	<div class="float_left width_700 border_right">
-		<h2 class="cms_title">User Account : <span>User Login<span></h2>
-		<div class="home_user">
-			<form method="post" action="<?php echo base_url(); ?>home/user" name="user_action">
-				<table width="100%" cellpadding="5" cellspacing="0" border="0">
-					<?php if( isset( $error ) && $error != "" ) echo "<tr class='error'><td colspan='2'>$error</td></tr>"; ?>
-					<tr class="tr_name">
-						<td>Enter Your Full Name</td>
-						<td>: <input type="text" name="name" value="" required="required" /></td>
-					</tr>
-					<tr>
-						<td width="25%">Enter Your Email ID</td>
-						<td>: <input type="email" name="email" value="" required="required" /></td>
-					</tr>
-					<tr class="tr_password">
-						<td>Enter A Login Password</td>
-						<td>: <input type="password" name="password" value="" required="required" /></td>
-					</tr>
-					<tr class="tr_confirm">
-						<td>Confirm Login Password</td>
-						<td>: <input type="password" name="cpassword" value="" required="required" /></td>
-					</tr>
-					<tr>
-						<td> </td>
-						<td>
-							: 
-							<input type="submit" name="submit" value="Submit" /> 
-							<input type="button" name="cancel" value="Cancel" onclick="window.location.href='<?php echo base_url(); ?>'" />
-							<input type="hidden" name="submit_type" value="login" class="submit_type" /> 
-						</td>
-					</tr>
-					<tr>
-						<td> </td>
-						<td style="text-align: right;">
-							<a href="javascript:void();" class="user_link">User Login</a>
-							<a href="javascript:void();" class="signup_link">New Signup</a>
-							<a href="javascript:void();" class="reset_link">Reset Password</a>
-						</td>
-					</tr>
-				</table>
-			</form>
-		</div>
-	</div>
-	<?php $this->load->view( 'home/right_view' ); ?>
-	<div class="clear"></div>
+
+
+
+<div id="mainBody">
+	<div class="container">
+		<div class="row">
+
+			<div id="sidebar" class="span3">
+				<ul id="sideManu" class="nav nav-tabs nav-stacked">
+					<?php
+					$category_nav = $this->get_contents->get_data_items("category", "active", "1", "*");
+					if ($category_nav != "") {
+						foreach ($category_nav as $nav) {
+							echo "<li class=\"subMenu open\"><a>$nav->category_name</a>";
+							$subcategory_nav = $this->get_contents->get_data_items("subcategory", "id_category = $nav->id AND active = ", 1, "*");
+							if ($subcategory_nav != "") {
+								echo "<ul>";
+								foreach ($subcategory_nav as $nav_sub) echo "<li><a class=\"subMenu open\" href='" . base_url() . "home/content/subcategory/$nav_sub->id/'><i class=\"icon-chevron-right\"></i>$nav_sub->subcategory_name</a>";
+								echo "</ul>";
+							}
+							echo "</li>";} }
+					?>
+				</ul>
+				<br/>
+			</div>
+
+			<div class="span9">
+				<h3> Login</h3>
+				<hr class="soft"/>
+
+				<div class="row">
+					<div class="span4">
+						<div class="well">
+							<h5>ALREADY REGISTERED ?</h5>
+							<form>
+								<div class="control-group">
+									<label class="control-label" for="inputEmail1">Email</label>
+									<div class="controls">
+										<input class="span3"  type="text" id="inputEmail1" placeholder="Email">
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="inputPassword1">Password</label>
+									<div class="controls">
+										<input type="password" class="span3"  id="inputPassword1" placeholder="Password">
+									</div>
+								</div>
+								<div class="control-group">
+									<div class="controls">
+										<button type="submit" class="btn">Sign in</button> <a href="forgetpass.html">Forget password?</a>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="span1"> &nbsp;</div>
+					<div class="span4">
+						<div class="well">
+							<h5>CREATE YOUR ACCOUNT</h5><br/>
+							<form method="post" action="<?php echo base_url(); ?>home/user" name="user_action">
+								<?php if( isset( $error ) && $error != "" ) echo "<span>$error</span>"; ?>
+								<div class="control-group">
+									<label class="control-label" for="inputEmail0">Enter Your Full Name</label>
+									<div class="controls">
+										<input class="span3" type="text" name="name" value="" required="required" placeholder="Full Name">
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="inputEmail0">E-mail address</label>
+									<div class="controls">
+										<input class="span3" type="email" name="email" value="" required="required" placeholder="Email">
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="inputEmail0">Enter A Login Password</label>
+									<div class="controls">
+										<input class="span3" type="password" name="password" value="" required="required" placeholder="Password">
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="inputEmail0">Confirm Login Password</label>
+									<div class="controls">
+										<input class="span3" type="password" name="cpassword" value="" required="required" placeholder="Confirm Password">
+									</div>
+								</div>
+								<div class="controls">
+									<button type="submit" name="submit" class="btn block">Create Your Account</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div></div>
 </div>
+
+<?php //$this->load->view( 'home/right_view' ); ?>

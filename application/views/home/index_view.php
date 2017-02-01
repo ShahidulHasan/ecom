@@ -43,7 +43,7 @@
                     ?>
                 </ul>
                 <br/>
-
+                <!-- Sidebar end=============================================== -->
                 <?php
                 if ($release != '' && count($release) > 0) {
                     $i = 0;
@@ -69,7 +69,6 @@
                 } ?>
 
             </div>
-            <!-- Sidebar end=============================================== -->
 
             <div class="span9">
                 <div class="well well-small">
@@ -256,13 +255,10 @@
 										</a>"; ?>
                                         <div class="caption">
                                             <h5><?php echo $latest->product_name; ?></h5>
-                                            <h4 style="text-align:center"><a class="btn"
-                                                                             href="<?php echo base_url() . "home/product/$latest->id"; ?>">
-                                                    <i class="icon-zoom-in"></i></a>
-                                                <a class="btn"
-                                                   href="<?php echo base_url() . "home/product/$latest->id"; ?>">Add to
-                                                    <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary"
-                                                                                              href="#"><?php echo $latest->product_price; ?></a>
+                                            <h4 style="text-align:center"><a class="btn" href="<?php echo base_url() . "home/product/$latest->id"; ?>">
+                                                <i class="icon-zoom-in"></i></a>
+                                                <a class="btn" href="<?php echo base_url(); ?>cart">Add to
+                                                <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#"><?php echo $latest->product_price; ?></a>
                                             </h4>
                                         </div>
                                     </div>
