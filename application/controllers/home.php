@@ -6,6 +6,7 @@ class Home extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model( "core_model" );
+        $this->load->helper('url');
 	}
 	
 	public function index($id=0)
@@ -20,6 +21,35 @@ class Home extends MY_Controller {
 		
 		$this->load->view('header', $data);
 		$this->load->view('home/index_view');
+		$this->load->view('footer');
+	}
+
+	public function special_offer()
+	{
+		$data['menu_active'] = "home";
+		$data['release'] = $this->core_model->get_rows( "product", 'status_new', '1', "*", 'id', 'DESC', 20, 'active', 1 );
+		$data['featured'] = $this->core_model->get_rows( "product", 'status_featured', '1', "*", 'id', 'DESC', 20, 'active', 1 );
+		$data['topitems'] = $this->core_model->get_rows( "product", 'status_top', '1', "*", 'id', 'DESC', 20, 'active', 1 );
+		$data['otehritems'] = $this->core_model->get_rows( "product", 'status_new = 0 AND status_featured = 0 AND status_top = ', '0', "*", 'id', 'DESC', 20, 'active', 1 );
+
+		$this->load->view('header', $data);
+		$this->load->view('home/special_offer');
+		$this->load->view('footer');
+	}
+
+	public function delivery()
+	{
+		$data['menu_active'] = "home";
+		$this->load->view('header', $data);
+		$this->load->view('home/delivery');
+		$this->load->view('footer');
+	}
+
+	public function supplier()
+	{
+		$data['menu_active'] = "home";
+		$this->load->view('header', $data);
+		$this->load->view('home/supplier');
 		$this->load->view('footer');
 	}
 	
@@ -87,6 +117,16 @@ class Home extends MY_Controller {
 		$this->load->view('home/content_view');
 		$this->load->view('footer');
 	}
+
+
+    public function contactus()
+    {
+        $data['menu_active'] = "home";
+        $data['all_product'] = $this->core_model->get_rows( "product", "status_featured", 1, "*", 'id', 'desc', '', 'active', 1 );
+        $this->load->view('header', $data);
+        $this->load->view('home/contact_us');
+        $this->load->view('footer');
+    }
 	
 	public function cms($id=1)
 	{
@@ -172,7 +212,27 @@ class Home extends MY_Controller {
 		$this->load->view('home/user_view');
 		$this->load->view('footer');
 	}
-	
+
+    public function login_action()
+    {
+        $this->db->select('*');
+        $this->db->from('user');
+        $this->db->where('email', $_REQUEST['username']);
+        $query = $this->db->get();
+        $num_rows = $query->num_rows();
+        $result = $query->result();
+
+        if( $num_rows > 0 && md5( $_REQUEST['password'] ) == $result[0]->password ){
+            $this->session->set_userdata( 'user',$result[0]->id );
+            $this->session->set_userdata( 'email', $_REQUEST['username'] );
+            redirect( "/user/index" );
+        } else {
+            $massage = $num_rows > 0 ? "Password doesn't match with email." : "Invalid email address entered.";
+            $this->session->set_userdata( array( "massage" => $massage ));
+            redirect("home");
+        }
+    }
+
 	public function randomAlphaNum($length)
 	{
 		$rangeMin = pow(36, 1); 

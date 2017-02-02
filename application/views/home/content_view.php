@@ -1,67 +1,140 @@
-<style>
-	.content_sorting { text-align: center; padding: 10px 0; margin: 0 auto; width: 360px; }
-	.content_sorting ul { text-align: center; margin: 0px; padding: 0px; float: left; }
-	.content_sorting ul li { text-align: center; margin: 0px 10px; padding: 0px; width: 100px; float: left; list-style: none; }
-	.content_sorting ul li a { display: block; padding: 10px 20px; background: #036; color: #CCC; text-align: center; font-size: 12px; text-decoration: none; border-radius: 5px; }
-	.content_sorting ul li a:hover, .content_sorting ul li a.active { background: #003; color: #FFF; } 
-	.horizental_display { padding: 10px; width: 680px; }
-	.horizental_display .normal_block { margin: 10px 0px; padding: 10px !important; width: 640px; background: #EFEFEF; border-radius: 3px; border: 5px solid #EAEAEA !important; cursor: pointer; }
-	.horizental_display .normal_block img { float: left; width: 80px; height: 70px; margin-right: 20px; border: 2px solid #DDD; }
-	.horizental_display .normal_block p { float: left; width: 530px; text-align: left; height: 50px; }
-	.horizental_display .normal_block p span { text-align: right; float: right; margin-right: 10px; }
-	.horizental_display .item_display_container { height: 700px; }
-</style>
-<div class="width_1000 back_white">	
-	<div class="float_left width_700 border_right">
-		<div class="item_display">
-			<div class='item_display_container item_display_1'>
-				<div class='item_display_container_block'>
-			<?php
-			if( $all_product != '' && count( $all_product ) > 0 )
-			{
-				
-				echo "
-				";
-				$i = 0; $j = 1;
-				foreach( $all_product as $product )
-				{
-					$i++;
-					$product_name = $product->product_short == "" ? $product->product_name : $product->product_short;
-					echo "
-				<div class='item_display_block_content'>	
-					<a href='" . base_url() ."home/product/$product->id'>
-						<img src='" . base_url() ."assets/product/" . ( $product->phy_path == "" ? "nopicture.png" : $product->phy_path ) . "' title='$product->product_name' /> 
-					</a>
-					<p>" . ( strlen( $product_name ) > 80 ? ( substr( $product_name, 0, 80 ) . "..") : $product_name  ) . "</p>
-					<p class='price_p'>$ $product->product_price</p>
-					<img src='" . base_url() ."assets/images/add_to_cart_blue.png' class='add_to_cart product_$product->id' />
+<div id="mainBody">
+	<div class="container">
+		<div class="row">
+
+			<!-- Sidebar ================================================== -->
+			<div id="sidebar" class="span3">
+				<ul id="sideManu" class="nav nav-tabs nav-stacked">
+					<?php
+					$category_nav = $this->get_contents->get_data_items("category", "active", "1", "*");
+					if ($category_nav != "") {
+						foreach ($category_nav as $nav) {
+							echo "<li class=\"subMenu open\"><a>$nav->category_name</a>";
+							$subcategory_nav = $this->get_contents->get_data_items("subcategory", "id_category = $nav->id AND active = ", 1, "*");
+							if ($subcategory_nav != "") {
+								echo "<ul>";
+								foreach ($subcategory_nav as $nav_sub) echo "<li><a class=\"subMenu open\" href='" . base_url() . "home/content/subcategory/$nav_sub->id/'><i class=\"icon-chevron-right\"></i>$nav_sub->subcategory_name</a>";
+								echo "</ul>";
+							}
+							echo "</li>";} }
+					?>
+				</ul>
+				<br/>
+			</div>
+			<!-- Sidebar end=============================================== -->
+
+			<div class="span9">
+				<h3> Products Name <small class="pull-right"> <?php count( $all_product ) ?> products are available </small></h3>
+				<hr class="soft"/>
+				<p>
+					Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - that is why our goods are so popular and we have a great number of faithful customers all over the country.
+				</p>
+				<hr class="soft"/>
+				<form class="form-horizontal span6">
+					<div class="control-group">
+						<label class="control-label alignL">Sort By </label>
+						<select>
+							<option>Priduct name A - Z</option>
+							<option>Priduct name Z - A</option>
+							<option>Priduct Stoke</option>
+							<option>Price Lowest first</option>
+						</select>
+					</div>
+				</form>
+
+				<div id="myTab" class="pull-right">
+					<a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
+					<a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
 				</div>
-					";
-					if( $i % 12 == 0 ) {
-						$j++;
-						echo "</div></div><div class='item_display_container item_display_$j'><div class='item_display_container_block'>";
-					}
-					else if( $i % 4 == 0 ) {
-						echo "</div><div class='item_display_container_block'>";
-					}
-				}
-				echo "
-				";
-			}
-			?>
+				<br class="clr"/>
+				<div class="tab-content">
+					<div class="tab-pane" id="listView">
+						<?php
+						if( $all_product != '' && count( $all_product ) > 0 ){
+							$i = 0; $j = 1;
+							foreach ($all_product as $latest) {
+								if ($i < 6) { $i++; ?>
+									<div class="row">
+										<div class="span2">
+											<?php echo "<img src='" . base_url() . "assets/product/" . ($latest->phy_path == "" ? "nopicture.png" : $latest->phy_path) . "' title='$latest->product_name' /> " ?>
+										</div>
+										<div class="span4">
+											<h3>New | Available</h3>
+											<hr class="soft"/>
+											<h5><?php echo $latest->product_name; ?></h5>
+											<p>
+												<?php echo $latest->product_short; ?>
+											</p>
+											<a class="btn btn-small pull-right" href="<?php echo base_url() . "home/product/$latest->id"; ?>">View Details</a>
+											<br class="clr"/>
+										</div>
+										<div class="span3 alignR">
+											<form class="form-horizontal qtyFrm">
+												<h3> <?php echo $latest->product_price; ?>tk</h3>
+												<label class="checkbox">
+													<input type="checkbox">  Adds product to compair
+												</label><br/>
+												<a href="<?php echo base_url() . "home/product/$latest->id"; ?>" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+												<a href="<?php echo base_url() . "home/product/$latest->id"; ?>" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+
+											</form>
+										</div>
+									</div>
+									<hr class="soft"/>
+							<?php } }
+						} ?>
+					</div>
+
+					<div class="tab-pane  active" id="blockView">
+						<ul class="thumbnails">
+
+							<?php
+							if( $all_product != '' && count( $all_product ) > 0 ){
+								$i = 0; $j = 1;
+								foreach ($all_product as $latest) {
+									if ($i < 6) { $i++; ?>
+										<li class="span3">
+											<div class="thumbnail">
+												<a href="<?php echo base_url() . "home/product/$latest->id"; ?>">
+													<?php echo "<img src='" . base_url() . "assets/product/" . ($latest->phy_path == "" ? "nopicture.png" : $latest->phy_path) . "' title='$latest->product_name' /> " ?>
+												</a>
+												<div class="caption">
+													<h5><?php echo $latest->product_name; ?></h5>
+													<p><?php echo $latest->product_short; ?></p>
+													<h4><a class="btn" href="<?php echo base_url() . "home/product/$latest->id"; ?>">
+															<i class="icon-zoom-in"></i></a>
+														<a class="btn" href="<?php echo base_url() . "home/product/$latest->id"; ?>">Add
+															to <i class="icon-shopping-cart"></i></a>
+														<a class="btn btn-primary" href="#"><?php echo $latest->product_price; ?></a>
+													</h4>
+												</div>
+											</div>
+										</li>
+									<?php } }
+							} ?>
+						</ul>
+						<hr class="soft"/>
+					</div>
 				</div>
+
+<!--				<a href="compair.html" class="btn btn-large pull-right">Compair Product</a>-->
+
+				<?php if( count( $all_product ) > 6 ) { ?>
+				<div class="pagination">
+					<ul>
+						<li><a href="#">&lsaquo;</a></li>
+						<?php
+						for( $i = 1; $i <= ceil( count( $all_product ) / 6 ); $i++ )
+							echo "<li><a href='#'>$i</a></li>";
+						?>
+						<li><a href="#">...</a></li>
+						<li><a href="#">&rsaquo;</a></li>
+					</ul>
+				</div>
+				<?php } ?>
+				<br class="clr"/>
 			</div>
 		</div>
-		<?php if( count( $all_product ) > 12 ) { ?>
-		<div class="item_display_nav">
-			<ul>
-				<?php
-				for( $i = 1; $i <= ceil( count( $all_product ) / 12 ); $i++ ) echo "<li class='item_display_nav_$i'><img src='" . base_url() . "assets/images/featured_item_block_nav.png' /></li>";
-				?>
-			</ul>
-		</div>
-		<?php } ?>
 	</div>
-	<?php $this->load->view( 'home/right_view' ); ?>
-	<div class="clear"></div>
 </div>
+

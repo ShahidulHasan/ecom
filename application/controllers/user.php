@@ -10,8 +10,10 @@ class User extends MyUser_Controller {
 	
 	public function index()
 	{
-		$id = $this->session->userdata('user');
-		$user = $this->core_model->get_row_info('user', 'id', $id, '*');
+        var_dump('1');die;
+        $id = $this->session->userdata('user');
+        var_dump($id);die;
+        $user = $this->core_model->get_row_info('user', 'id', $id, '*');
 		$user_address = $this->core_model->get_row_info('user_address', 'id_user', $id, '*');
 		$data['user'] = array(
 			"fullname"		=> $user->fullname,

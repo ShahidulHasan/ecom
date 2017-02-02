@@ -3,21 +3,21 @@
 		<div class="row">
 			<div class="span3">
 				<h5>ACCOUNT</h5>
-				<a href="login.html">YOUR ACCOUNT</a>
-				<a href="login.html">PERSONAL INFORMATION</a>
-				<a href="login.html">ADDRESSES</a>
+				<a href="<?php echo base_url(); ?>home/user">YOUR ACCOUNT</a>
+				<a href="<?php echo base_url(); ?>home/user">PERSONAL INFORMATION</a>
+				<a href="<?php echo base_url(); ?>home/user">ADDRESSES</a>
 			</div>
 			<div class="span3">
 				<h5>INFORMATION</h5>
-				<a href="<?php echo base_url() . "home/contact" ?>">CONTACT</a>
-				<a href="register.html">REGISTRATION</a>
-				<a href="faq.html">FAQ</a>
+				<a href="<?php echo base_url(); ?>home/contactus">CONTACT</a>
+				<a href="<?php echo base_url(); ?>home/user">REGISTRATION</a>
+				<a href="<?php echo base_url(); ?>home/contactus">FAQ</a>
 			</div>
 			<div class="span3">
 				<h5>OUR OFFERS</h5>
 				<a href="#">NEW PRODUCTS</a>
 				<a href="#">TOP SELLERS</a>
-				<a href="#">SUPPLIERS</a>
+				<a href="<?php echo base_url(); ?>home/supplier">SUPPLIERS</a>
 			</div>
 			<div class="span3" style="margin-top: 80px;margin-left: 20px;">
 				<div id="socialMedia" class="span3 pull-right">
