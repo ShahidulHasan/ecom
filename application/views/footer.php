@@ -30,12 +30,23 @@
 	</div><!-- Container End -->
 </div>
 <!-- Placed at the end of the document so the pages load faster ============================================= -->
+<script src="<?php echo base_url();?>assets/js/html5shiv.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>assets/themes/js/jquery.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>assets/themes/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>assets/themes/js/google-code-prettify/prettify.js"></script>
 
 <script src="<?php echo base_url(); ?>assets/themes/js/bootshop.js"></script>
 <script src="<?php echo base_url(); ?>assets/themes/js/jquery.lightbox-0.5.js"></script>
+<script type="text/javascript">var siteurl='<?php echo base_url();?>';</script>
+<script src="<?php echo base_url();?>assets/js/jquery-1.8.2.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>assets/js/popup.js" type="text/javascript"></script>
+<?php if( file_exists( 'assets/css/'.$this->router->fetch_class().'.css' )) { ?>
+	<link href="<?php echo base_url();?>assets/css/<?php echo $this->router->fetch_class(); ?>.css" rel="stylesheet" type="text/css" />
+<?php } ?>
+<?php if( file_exists( 'assets/js/'.$this->router->fetch_class().'.js' )) { ?>
+	<script src="<?php echo base_url();?>assets/js/<?php echo $this->router->fetch_class(); ?>.js" type="text/javascript"></script>
+<?php } ?>
+<script src="<?php echo base_url();?>assets/js/core.js" type="text/javascript"></script>
 
 <!-- Themes switcher section ============================================================================================= -->
 <div id="secectionBox">
