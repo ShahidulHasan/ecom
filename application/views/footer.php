@@ -38,7 +38,7 @@
 <script src="<?php echo base_url(); ?>assets/themes/js/bootshop.js"></script>
 <script src="<?php echo base_url(); ?>assets/themes/js/jquery.lightbox-0.5.js"></script>
 <script type="text/javascript">var siteurl='<?php echo base_url();?>';</script>
-<script src="<?php echo base_url();?>assets/js/jquery-1.8.2.js" type="text/javascript"></script>
+<!--<script src="--><?php //echo base_url();?><!--assets/js/jquery-1.8.2.js" type="text/javascript"></script>-->
 <script src="<?php echo base_url();?>assets/js/popup.js" type="text/javascript"></script>
 <?php if( file_exists( 'assets/css/'.$this->router->fetch_class().'.css' )) { ?>
 	<link href="<?php echo base_url();?>assets/css/<?php echo $this->router->fetch_class(); ?>.css" rel="stylesheet" type="text/css" />
