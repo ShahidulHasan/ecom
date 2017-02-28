@@ -65,7 +65,7 @@
 			<label>Product Price:</label>
 			<div class="margin-form">
 				<input type="text"  name="product_price" id="product_price"  value="<?php if( isset( $product_price ) ) echo $product_price; ?>" style="width: 80px" required="required" /> 
-				<sup>* USD Rate</sup>
+				<sup>* TK</sup>
 			</div>
 			<div class="clear"></div>
 			
