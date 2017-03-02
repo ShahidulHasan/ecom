@@ -52,11 +52,18 @@
 					<button type="submit" id="submitButton" class="btn btn-primary">Go</button>
 				</form>
 				<ul id="topMenu" class="nav pull-right">
-					<li class=""><a href="<?php echo base_url(); ?>home/special_offer">Specials Offer</a></li>
 					<li class=""><a href="<?php echo base_url(); ?>home/delivery">Delivery</a></li>
 					<li class=""><a href="<?php echo base_url(); ?>home/contactus">Contact</a></li>
 					<li class="">
-						<a href="<?php echo base_url(); ?>home/user" role="button" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
+                        <?php if( $this->session->userdata( "user" )) { ?>
+                            <a onclick="window.location.href='<?php echo base_url() . "user/signout"; ?>'" role="button" style="padding-right:0">
+                                <span class="btn btn-large btn-success">Logout</span>
+                            </a>
+                        <?php } else { ?>
+                            <a href="<?php echo base_url(); ?>home/user" role="button" style="padding-right:0">
+                                <span class="btn btn-large btn-success">Login</span>
+                            </a>
+                        <?php } ?>
 					</li>
 				</ul>
 			</div>
