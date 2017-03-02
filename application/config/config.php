@@ -15,7 +15,8 @@
 |
 */
 //$config['base_url']	= 'http://www.osqursoft.com/demo/ecom/';
-$config['base_url']	= 'http://www.ecom.local';
+//$config['base_url']	= 'http://www.ecom.local';
+$config['base_url']	= 'http://khaledgroup.emicroportal.com';
 
 /*
 |--------------------------------------------------------------------------

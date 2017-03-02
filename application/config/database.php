@@ -48,10 +48,14 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '';
-$db['default']['database'] = 'ecom';
+//$db['default']['hostname'] = 'localhost';
+$db['default']['hostname'] = 'emicroportal.com';
+//$db['default']['username'] = 'root';
+$db['default']['username'] = 'teamemicro';
+//$db['default']['password'] = '';
+$db['default']['password'] = 'teamemicro123';
+//$db['default']['database'] = 'ecom';
+$db['default']['database'] = 'emicro_khaledgroup';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
