@@ -49,25 +49,35 @@
 <?php
 if( isset( $view ) && $view != 'email' ) $country = $this->get_contents->get_data_items( "country", "", "", "*", "name" );
 ?>
-<div class="content_full">
+<div id="mainBody">
+<div class="container">
+<div class="row">
+
+<!-- Sidebar ================================================== -->
+<div id="sidebar" class="span3">
+    <div class="checkout_title">Checkout</div>
+    <ul id="sideManu" class="nav nav-tabs nav-stacked">
+        <li <?php if( $view == 'email' ) echo 'class="active_checkout"'; ?>>
+            <a href="<?php echo base_url() . "cart/checkout/email"; ?>">Email Or Login</a>
+        </li>
+        <li <?php if( $view == 'delivery' ) echo 'class="active_checkout"'; ?>>
+            <a href="<?php echo base_url() . "cart/checkout" . ( $delivery != "" ? "/delivery" : "" ); ?>">Delivery Address</a>
+        </li>
+        <li <?php if( $view == 'payment' ) echo 'class="active_checkout"'; ?>>
+            <a href="<?php echo base_url() . "cart/checkout" . ( $payment != "" ? "/payment" : "" ); ?>">Payment Details</a>
+        </li>
+    </ul>
+    <br/>
+</div>
+<!-- Sidebar end=============================================== -->
+
+<div class="span9">
+
     <div class="checkout">
 		<div class="float_left">
-			<div class="checkout_title">Checkout</div>
+
 			<div class="checkout_left">
-				<div class="checkout_nav">
-					<ul>
-						<li <?php if( $view == 'email' ) echo 'class="active_checkout"'; ?>>
-							<a href="<?php echo base_url() . "cart/checkout/email"; ?>">Email Or Login</a>
-						</li>
-						<li <?php if( $view == 'delivery' ) echo 'class="active_checkout"'; ?>>
-							<a href="<?php echo base_url() . "cart/checkout" . ( $delivery != "" ? "/delivery" : "" ); ?>">Delivery Address</a>
-						</li>
-						<li <?php if( $view == 'payment' ) echo 'class="active_checkout"'; ?>>
-							<a href="<?php echo base_url() . "cart/checkout" . ( $payment != "" ? "/payment" : "" ); ?>">Payment Details</a>
-						</li>
-					</ul>
-					<div class="clear"> </div>
-				</div>
+
 				<div class="checkout_content">
 					<?php
 					$error = $this->session->userdata( "error" );
@@ -179,10 +189,10 @@ if( isset( $view ) && $view != 'email' ) $country = $this->get_contents->get_dat
 							<div class="credit_payment_view">
 								<form method="post" action="<?php echo base_url(); ?>cart/payment/credit">
 									<p>
-										Pay using Credit Card. 
+										Pay using Credit Card.
 										<input type="radio" name="card" value="visa" required="required" /> <img src="<?php echo base_url(); ?>assets/images/visa-icon.jpg" />
 										<input type="radio" name="card" value="mastercard" required="required" /> <img src="<?php echo base_url(); ?>assets/images/mastercard-icon.jpg" />
-										<input type="radio" name="card" value="ddbl" required="required" /> <img src="<?php echo base_url(); ?>assets/images/dbbl.jpg" /> 
+										<input type="radio" name="card" value="ddbl" required="required" /> <img src="<?php echo base_url(); ?>assets/images/dbbl.jpg" />
 									</p><br />
 									<p>Amount Payable on Credit Card BDT<?php $total = $this->session->userdata( "total" ); echo $total; ?></p><br />
 									<table width="100%" cellpadding="5" cellspacing="0" border="0">
@@ -215,7 +225,7 @@ if( isset( $view ) && $view != 'email' ) $country = $this->get_contents->get_dat
 													<option value="10">Oct (10)</option>
 													<option value="11">Nov (11)</option>
 													<option value="12">Dec (12)</option>
-												</select> 
+												</select>
 												<select name="expiry_year" style="width: 92px;">
 													<option value="">Year</option>
 													<?php for( $i = date( "Y", strtotime( "-1 year" ) ); $i <= date( "Y", strtotime( "10 year" ) ); $i++ ) echo "<option value='$i'>$i</option>"; ?>
@@ -228,8 +238,8 @@ if( isset( $view ) && $view != 'email' ) $country = $this->get_contents->get_dat
 										</tr>
 									</table>
 									<p class="billing_info">
-										Billing Address | 
-										<input type="radio" name="billing_status" class="billing_status_same"value="same" <?php if( isset( $pay_details ) && $pay_details['billing_status'] == "same" ) echo ' checked="checked"'; ?> /> As Like Delivery 
+										Billing Address |
+										<input type="radio" name="billing_status" class="billing_status_same"value="same" <?php if( isset( $pay_details ) && $pay_details['billing_status'] == "same" ) echo ' checked="checked"'; ?> /> As Like Delivery
 										<input type="radio" name="billing_status" class="billing_status_new" value="new" <?php if( isset( $pay_details ) && $pay_details['billing_status'] == "same" ) echo ' checked="checked"'; ?> /> Different Address
 									</p>
 									<table width="100%" cellpadding="5" cellspacing="0" border="0" class="billing_details">
@@ -290,10 +300,10 @@ if( isset( $view ) && $view != 'email' ) $country = $this->get_contents->get_dat
 							<div class="debit_payment_view">
 								<form method="post" action="<?php echo base_url(); ?>cart/payment/debit">
 									<p>
-										Pay using Debit Card. 
+										Pay using Debit Card.
 										<input type="radio" name="card" value="visa" required="required" /> <img src="<?php echo base_url(); ?>assets/images/visa-icon.jpg" />
 										<input type="radio" name="card" value="mastercard" required="required" /> <img src="<?php echo base_url(); ?>assets/images/mastercard-icon.jpg" />
-										<input type="radio" name="card" value="ddbl" required="required" /> <img src="<?php echo base_url(); ?>assets/images/dbbl.jpg" /> 
+										<input type="radio" name="card" value="ddbl" required="required" /> <img src="<?php echo base_url(); ?>assets/images/dbbl.jpg" />
 									</p><br />
 									<p>Amount Payable on Debit Card BDT<?php $total = $this->session->userdata( "total" ); echo $total; ?></p><br />
 									<table width="100%" cellpadding="5" cellspacing="0" border="0">
@@ -326,7 +336,7 @@ if( isset( $view ) && $view != 'email' ) $country = $this->get_contents->get_dat
 													<option value="10">Oct (10)</option>
 													<option value="11">Nov (11)</option>
 													<option value="12">Dec (12)</option>
-												</select> 
+												</select>
 												<select name="expiry_year" style="width: 92px;">
 													<option value="">Year</option>
 													<?php for( $i = date( "Y", strtotime( "-1 year" ) ); $i <= date( "Y", strtotime( "10 year" ) ); $i++ ) echo "<option value='$i'>$i</option>"; ?>
@@ -339,8 +349,8 @@ if( isset( $view ) && $view != 'email' ) $country = $this->get_contents->get_dat
 										</tr>
 									</table>
 									<p class="billing_info">
-										Billing Address | 
-										<input type="radio" name="billing_status" class="billing_status_same"value="same" <?php if( isset( $pay_details ) && $pay_details['billing_status'] == "same" ) echo ' checked="checked"'; ?> /> As Like Delivery 
+										Billing Address |
+										<input type="radio" name="billing_status" class="billing_status_same"value="same" <?php if( isset( $pay_details ) && $pay_details['billing_status'] == "same" ) echo ' checked="checked"'; ?> /> As Like Delivery
 										<input type="radio" name="billing_status" class="billing_status_new" value="new" <?php if( isset( $pay_details ) && $pay_details['billing_status'] == "same" ) echo ' checked="checked"'; ?> /> Different Address
 									</p>
 									<table width="100%" cellpadding="5" cellspacing="0" border="0" class="billing_details">
@@ -400,7 +410,7 @@ if( isset( $view ) && $view != 'email' ) $country = $this->get_contents->get_dat
 							</div>
 							<div class="bkash_payment_view">
 								<p>
-									Pay using mobile banking. 
+									Pay using mobile banking.
 									<input type="radio" name="card" class="bkash_radio" value="bkash" /> <img style="top: 0px;" src="<?php echo base_url(); ?>assets/images/bkash.png" />
 								</p><br />
 								<div class="bkash_payment_form">
@@ -416,7 +426,7 @@ if( isset( $view ) && $view != 'email' ) $country = $this->get_contents->get_dat
 											<li>Get the trxid code from return sms and put it below </li>
 										</ul>
 										<br />
-										<?php 
+										<?php
 										if( $error != '' && $payment == "bkash" ) {
 											echo '<p class="error">' . $this->session->userdata( "error" ) . '</p>';
 											$this->session->unset_userdata( "error" );
@@ -438,78 +448,69 @@ if( isset( $view ) && $view != 'email' ) $country = $this->get_contents->get_dat
 				</div>
 			</div>
 		</div>
-		<div class="float_right width_350">
-			<div class="checkout_title">Order Summary</div>
-			<table width="100%" cellpadding="5" cellspacing="0" border="0" class="order_summery">
-				<tr bgcolor="#E1E1E1">
-					<th>Product</th>
-					<th>Price</th>
-					<th>Qty</th>
-					<th>Sub Total</th>
-				</tr>
-				<?php
-				$qry = $total = 0;
-				foreach( $cart as $row ) {
-					$price = number_format( $row['qty'] * $product[$row['id']]->product_price, 2, '.', '' );
-					$total += $price;
-					$qry += $row['qty'];
-					echo "
-				<tr>
-					<td>
-						<a href='" . base_url() ."home/product/$row[id]'><img src='" . base_url() ."assets/product/" . ( $product[$row['id']]->phy_path == "" ? "nopicture.png" : $product[$row['id']]->phy_path ) . "' title='" . $product[$row['id']]->product_name . "' width='30' /> </a><br />
-						" . $product[$row['id']]->product_name . "<br />
-						" . $category[$product[$row['id']]->id_category] . " - 
-						" . $subcategory[$product[$row['id']]->id_subcategory] . "
-					</td>
-					<td>$ " . $product[$row['id']]->product_price . "</td>
-					<td>$row[qty]</td>
-					<td align='right'>$ $price</td>
-				</tr>
-					";	
-				}
-				if( $setting->delivarycost > 0 ) {
-					$total += $setting->delivarycost;
-					echo "
-					<tr>
-						<td align='left' colspan='3'>Delivary Product Genaral Charge</td>
-						<td align='right'>$ $setting->delivarycost</td>
-					</tr>
-					";
-				}
-				$total = number_format( $total, 2, '.', '' );
-				$this->session->set_userdata( array( "total" => $total ));
-				echo "
-				<tr>
-					<th align='right' colspan='2'> All Total</th>
-					<th>$qry</th>
-					<th align='right'>$ $total</th>
-				</tr>
-				";
-				?>
-			</table>
-			<?php if( $delivery != '' && $view == "payment" ) { ?>
-			<br />
-			<table width="100%" cellpadding="5" cellspacing="0" border="0" class="order_summery">
-				<tr bgcolor="#E1E1E1">
-					<th>Delivery Details </th>
-					<th align="right"><a href="<?php echo base_url() . "cart/checkout/delivery"; ?>">Edit</a></th>
-				</tr>
-				<?php
-				echo "
-				<tr><td>$delivery[name]</td></tr>
-				<tr>
-					<td>
-						$delivery[address] <br />
-						$delivery[city] <br />
-						$delivery[state] <br />
-					</td>
-				</tr>
-				<tr><td>$delivery[phone]</td></tr>
-				";
-				?>
-			</table>
-			<?php } ?>
-		</div>
+
 	</div>
-	<div class="clear"> </div>
+</div>
+            <div class="span12">
+                <h3> Order Summary </h3>
+                <hr class="soft"/>
+
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Image</th>
+                        <th>Model</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php if( count( $cart ) > 0 )
+                    {
+                        $qry = $total = $i = 0;
+                        foreach( $cart as $detail ) {
+                            $row = $product[$detail['id']];
+                            $i++;
+                            $total += $price = number_format( $row->product_price * $detail['qty'], 2, '.', '' );
+                            $qry += $detail['qty'];
+                            echo "
+			<tr class='" . ( $i % 2 == 0 ? "even" : "odd" ) . "_row'>
+				<td>$i</td>
+				<td>
+				    <img src='" . base_url() ."assets/product/" . ( $row->phy_path == "" ? "nopicture.png" : $row->phy_path ) . "' title='$row->product_name' width='60' />
+				</td>
+				<td>
+				    <a href='" . base_url() . "home/product/$row->id'>$row->product_name</a><br/>
+
+				</td>
+				<td>
+					<a href='" . base_url() . "home/content/category/$row->id_category'>" . ( $category[$row->id_category] ) . "</a>
+					-
+					<a href='" . base_url() . "home/content/subcategory/$row->id_subcategory/'>" . ( $subcategory[$row->id_subcategory] ) . "</a>
+				</td>
+				<td>$ $row->product_price</td>
+				<td>
+					<a href='" . base_url() . "cart/remove_item/$row->id/1' title='Remove One'><img src='" . base_url() . "assets/images/quantity_down.gif' /></a>
+					$detail[qty]
+					<a href='" . base_url() . "cart/add_item/$row->id' title='Add One'><img src='" . base_url() . "assets/images/quantity_up.gif' /></a>
+				</td>
+				<td> $price tk <a href='" . base_url() . "cart/remove_item/$row->id/all' title='Remove This'><img src='" . base_url() . "assets/images/cart_cross_small.png' /></a></td>
+			</tr>
+					";
+                        }  ?>
+                        <tr>
+                            <td colspan="6" style="text-align:right"><strong>TOTAL =</strong></td>
+                            <td class="label label-important" style="display:block"> <strong> <?php echo number_format( $total, 2, '.', '' ); ?> tk</strong></td>
+                        </tr>
+
+                    <?php } ?>
+                    </tbody>
+                </table>
+
+            </div>
+        </div></div>
 </div>

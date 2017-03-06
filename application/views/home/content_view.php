@@ -30,17 +30,6 @@
 					Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - that is why our goods are so popular and we have a great number of faithful customers all over the country.
 				</p>
 				<hr class="soft"/>
-				<form class="form-horizontal span6">
-					<div class="control-group">
-						<label class="control-label alignL">Sort By </label>
-						<select>
-							<option>Priduct name A - Z</option>
-							<option>Priduct name Z - A</option>
-							<option>Priduct Stoke</option>
-							<option>Price Lowest first</option>
-						</select>
-					</div>
-				</form>
 
 				<div id="myTab" class="pull-right">
 					<a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>

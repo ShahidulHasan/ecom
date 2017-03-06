@@ -30,13 +30,13 @@
 				<table class="table table-bordered">
 					<thead>
 					<tr>
-						<th>Product</th>
-						<th>Description</th>
-						<th>Quantity/Update</th>
-						<th>Price</th>
-						<th>Discount</th>
-						<th>Tax</th>
-						<th>Total</th>
+                        <th>Product</th>
+                        <th>Image</th>
+                        <th>Model</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
 					</tr>
 					</thead>
 					<tbody>
