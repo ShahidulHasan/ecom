@@ -21,9 +21,14 @@
 			</div>
 			<div class="span3" style="margin-top: 80px;margin-left: 20px;">
 				<div id="socialMedia" class="span3 pull-right">
-					<a href="#"><img width="40" height="40" src="<?php echo base_url(); ?>assets/themes/images/facebook.png" title="facebook" alt="facebook"/></a>
-					<a href="#"><img width="40" height="40" src="<?php echo base_url(); ?>assets/themes/images/twitter.png" title="twitter" alt="twitter"/></a>
-					<a href="#"><img width="40" height="40" src="<?php echo base_url(); ?>assets/themes/images/youtube.png" title="youtube" alt="youtube"/></a>
+                    <?php
+                    if(!empty($authUrl)) {
+                        echo '<a href="'.$authUrl.'"><img width="40" height="40" src="'. base_url().'assets/themes/images/facebook.png" title="facebook" alt="facebook"/></a>';
+                    }else {
+
+                    }?>
+<!--					<a href="#"><img width="40" height="40" src="--><?php //echo base_url(); ?><!--assets/themes/images/twitter.png" title="twitter" alt="twitter"/></a>-->
+<!--					<a href="#"><img width="40" height="40" src="--><?php //echo base_url(); ?><!--assets/themes/images/youtube.png" title="youtube" alt="youtube"/></a>-->
 				</div>
 			</div>
 		</div>

@@ -7,10 +7,51 @@ class Home extends MY_Controller {
 		parent::__construct();
 		$this->load->model( "core_model" );
         $this->load->helper('url');
+        $this->load->model('user');
 	}
 	
 	public function index($id=0)
 	{
+        include_once APPPATH."libraries/facebook-api-php-codexworld/facebook.php";
+
+        // Facebook API Configuration
+        $appId = '1215680078465158';
+        $appSecret = '50db483e91e7a3303a55d546c4577cf8';
+        $redirectUrl = base_url();
+        $fbPermissions = 'email';
+
+        //Call Facebook API
+        $facebook = new Facebook(array(
+            'appId'  => $appId,
+            'secret' => $appSecret
+
+        ));
+        $fbuser = $facebook->getUser();
+
+        if ($fbuser) {
+            $userProfile = $facebook->api('/me?fields=id,first_name,last_name,email,gender,locale,picture');
+            // Preparing data for database insertion
+            $userData['fullname'] = $userProfile['first_name']." ". $userProfile['last_name'];
+            $userData['phone_no'] = "";
+            $userData['email'] = $userProfile['email'];
+            $userData['address'] = "";
+            $userData['city'] = "";
+            $userData['state'] = "";
+            $userData['id_country'] = "";
+            $userData['password'] = md5("123456");
+            // Insert or update user data
+            $userID = $this->user->checkUser($userData);
+            if(!empty($userID)){
+                $data['userData'] = $userData;
+                $this->session->set_userdata('userData',$userData);
+                $this->session->userdata('userData');
+            } else {
+                $data['userData'] = array();
+                $this->session->userdata('userData');
+            }
+        }
+
+        $data['authUrl'] = $facebook->getLoginUrl(array('redirect_uri'=>$redirectUrl,'scope'=>$fbPermissions));
 
 		$data['menu_active'] = "home";
 		$data['banner'] = $this->core_model->get_rows( "setting_banner", 'status', '1', "*", 'id', 'DESC', 10 );
